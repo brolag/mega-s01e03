@@ -1,0 +1,44 @@
+---
+layout: runbook
+title: '#4471 · separate causes behind wrong dates'
+owner: support desk
+status: proposed
+reviewed: 2026-11-03
+signature: Codex
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  const signature = 'Codex';
+</script>
+
+# Separate problems, separate tickets
+
+The incident page describes one cause, but the desk's classification distinguishes a shared parser problem from a conflicting booking form hint. Group by cause and tenant context, rather than subject alone. Check the evidence before treating the classification as a confirmed diagnosis.
+
+<CauseTable ticket={4471} />
+
+## Parser
+
+The shared parser reads dates month-first for day-first tenants. Confirm the entered date, tenant locale, and resulting booking before filing a report here.
+
+## Booking-v3 hint
+
+For day-first tenants, booking-v3 presents a month-first hint while the form reads the date using the tenant's locale. The hint and parser should agree with that locale.
+
+## One-day moves
+
+The table notes reports read as a one-day move but filed by tenant under the parser. A one-day shift does not establish a month/day swap; retain these reports in the current classification and investigate the original date, time, time zone, and calendar display before assigning a separate cause.
+
+## Queue and triage
+
+The desk's export is a snapshot. Received and merged dates differ; check both when assessing the queue. Subject matches alone can merge distinct causes and split matching ones.
+
+<QueueTimeline ticket={4471} />
+
+<DedupeExplorer />
+
+<RenderStamp {signature} />
