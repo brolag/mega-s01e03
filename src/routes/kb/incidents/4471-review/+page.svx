@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · separate causes behind wrong dates'
 owner: support desk
-status: proposed
+status: resolved
 reviewed: 2026-11-03
 signature: Codex
 ---
@@ -23,9 +23,13 @@ The incident page describes one cause, but the desk's classification distinguish
 
 ## Parser
 
+Engineering reports this fixed on 5 October: `fix(dates): parse dd/mm for eu locales`.
+
 The shared parser reads dates month-first for day-first tenants. Confirm the entered date, tenant locale, and resulting booking before filing a report here.
 
 ## Booking-v3 hint
+
+Engineering marked this won’t fix on 5 October because the booking-v3 form was retired.
 
 For day-first tenants, booking-v3 presents a month-first hint while the form reads the date using the tenant's locale. The hint and parser should agree with that locale.
 
